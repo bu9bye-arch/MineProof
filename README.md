@@ -1,6 +1,6 @@
 # 雷证 · MineProof
 
-> **[English](README_EN.md)**
+> **[English](README_EN.md)** | **[🎮 在线游玩](https://bu9bye-arch.github.io/MineProof/)**
 
 基于边界双重验证的自动标雷扫雷。不猜测，只证明。
 
