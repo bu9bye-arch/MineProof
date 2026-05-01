@@ -53,4 +53,9 @@ MIT
 
 ---
 
-> 本项目为 Vibe Coding 产物，由 GPT-5.5 辅助生成。
+> 本项目为 Vibe Coding 产物，由以下模型辅助生成：
+>
+> | 环节 | 模型 |
+> |------|------|
+> | 主开发（需求实现、代码编写、调试） | mimo-v2.5-pro |
+> | 代码审查（review-bridge） | gemini-3.1-pro-gcli |

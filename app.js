@@ -5,6 +5,7 @@ const LEVELS = {
 };
 
 const boardEl = document.querySelector("#board");
+const wrapEl = document.querySelector('.board-wrap');
 const gameSurfaceEl = document.querySelector(".game-surface");
 const mineCounterEl = document.querySelector("#mineCounter");
 const timerEl = document.querySelector("#timer");
@@ -121,10 +122,26 @@ function shuffle(items) {
   }
 }
 
+function updateBoardSize() {
+  const WRAP_PADDING = 44;   // .board-wrap padding: 22px * 2
+  const CELL_GAP = 3;        // grid gap: 3px
+  const BOARD_PADDING = 16;  // .board padding: 8px * 2
+  const BOARD_BORDER = 4;    // .board border: 2px * 2
+  const MIN_CELL_SIZE = 26;  // 最小可点击尺寸
+
+  if (!wrapEl) return;
+  const availableWidth = wrapEl.clientWidth - WRAP_PADDING;
+  const gaps = (config.cols - 1) * CELL_GAP;
+  const contentWidth = availableWidth - gaps - BOARD_PADDING - BOARD_BORDER;
+  const idealCellSize = Math.floor(contentWidth / config.cols);
+  const cellSize = Math.max(MIN_CELL_SIZE, Math.min(config.cellSize, idealCellSize));
+  boardEl.style.setProperty("--cell-size", `${cellSize}px`);
+}
+
 function render() {
   boardEl.style.setProperty("--rows", config.rows);
   boardEl.style.setProperty("--cols", config.cols);
-  boardEl.style.setProperty("--cell-size", `${config.cellSize}px`);
+  updateBoardSize();
   boardEl.replaceChildren();
 
   forEachCell((cell) => {
@@ -1036,3 +1053,25 @@ for (const button of levelButtons) {
 }
 
 createGame();
+
+// 窗口大小变化时重新渲染，实现棋盘自适应
+function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
+window.addEventListener("resize", debounce(() => updateBoardSize(), 150));
+
+// 暗色模式切换（初始检测已在 index.html <head> 中完成）
+const themeToggle = document.querySelector("#themeToggle");
+if (themeToggle) {
+  // 同步 toggle 状态与当前主题
+  themeToggle.checked = document.documentElement.dataset.theme === "dark";
+
+  themeToggle.addEventListener("change", () => {
+    document.documentElement.dataset.theme = themeToggle.checked ? "dark" : "light";
+    localStorage.setItem("theme", themeToggle.checked ? "dark" : "light");
+  });
+}

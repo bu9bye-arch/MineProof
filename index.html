@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>边界双验扫雷</title>
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      // 防止暗色模式闪烁：在 CSS 加载后立即检测主题
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
   </head>
   <body>
     <main class="shell">
@@ -37,6 +44,10 @@
           <label class="toggle">
             <input id="soundToggle" type="checkbox" checked />
             <span>音效</span>
+          </label>
+          <label class="toggle">
+            <input id="themeToggle" type="checkbox" />
+            <span>暗色</span>
           </label>
         </div>
 
