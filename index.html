@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>边界双验扫雷</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="game-surface" aria-label="边界双验扫雷">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Boundary Verified Minesweeper</p>
+            <h1>边界双验扫雷</h1>
+          </div>
+          <div class="stats" aria-live="polite">
+            <span><strong id="mineCounter">0</strong> 雷</span>
+            <span><strong id="timer">000</strong> 秒</span>
+          </div>
+        </header>
+
+        <div class="controls" aria-label="游戏控制">
+          <div class="segmented" role="group" aria-label="难度">
+            <button class="segment is-active" data-level="easy" type="button">入门</button>
+            <button class="segment" data-level="medium" type="button">标准</button>
+            <button class="segment" data-level="hard" type="button">进阶</button>
+          </div>
+          <button id="newGame" class="icon-text" type="button" title="新游戏">
+            <span aria-hidden="true">↻</span>
+            <span>新局</span>
+          </button>
+          <label class="toggle">
+            <input id="autoFlagToggle" type="checkbox" checked />
+            <span>自动标雷</span>
+          </label>
+          <label class="toggle">
+            <input id="soundToggle" type="checkbox" checked />
+            <span>音效</span>
+          </label>
+        </div>
+
+        <div class="board-wrap">
+          <div id="board" class="board" aria-label="扫雷棋盘"></div>
+        </div>
+      </section>
+
+      <aside class="side-panel" aria-label="自动验证状态">
+        <div class="status-card">
+          <p class="eyebrow">Auto Marking</p>
+          <h2 id="gameStatus">准备开始</h2>
+          <p id="statusText">首点安全。翻开数字后，系统只会在边界数字形成双重验证时自动插旗。</p>
+        </div>
+
+        <div class="rule-list">
+          <h2>自动标记规则</h2>
+          <ul>
+            <li>候选格必须贴着已翻开的数字边界。</li>
+            <li>至少两个数字各自能独立推出同一个雷点。</li>
+            <li>局部边界约束枚举确认它在所有合法解中都是雷。</li>
+          </ul>
+        </div>
+
+        <div class="log-panel">
+          <h2>验证记录</h2>
+          <ol id="logList"></ol>
+        </div>
+      </aside>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
