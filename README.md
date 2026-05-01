@@ -50,3 +50,7 @@ xdg-open index.html  # Linux
 ## 许可证
 
 MIT
+
+---
+
+> 本项目为 Vibe Coding 产物，由 Claude Opus 4.7 辅助生成。
